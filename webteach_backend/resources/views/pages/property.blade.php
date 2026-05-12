@@ -1,119 +1,69 @@
-﻿<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Property Analysis | PropInsight</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    />
-    <link rel="stylesheet" href="css/style.css" />
-  </head>
-  <body class="bg-light">
-    <div
-      id="market-ticker"
-      class="bg-primary text-white text-center py-1 small fw-bold"
-    >
-      Market Feed Initializing...
-    </div>
+@extends('layouts.app')
 
-    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
-      <div class="container">
-        <a class="navbar-brand fw-bold" href="{{ route('home') }}"
-          >PROP<span class="text-primary">INSIGHT</span></a
-        >
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ms-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="{{ route('home') }}">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{{ route('listings.index') }}">Listings</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{{ route('compare') }}">Compare</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{{ route('calculator') }}">Calculator</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{{ route('map') }}">Map</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+@section('title', $property->title . ' | Property Analysis')
 
+@section('content')
     <main class="container py-5" role="main">
       <div class="row g-4">
         <div class="col-lg-8">
+          @if(session('success'))
+            <div class="alert alert-success">
+              {{ session('success') }}
+            </div>
+          @endif
+          
           <article class="card border-0 shadow-sm overflow-hidden mb-4">
-            <!-- Add actual property image - Modern Executive Villa in DHA Lahore -->
             <div class="position-relative">
+              @php
+                $placeholders = ['p1.jpg', 'p2.jpg', 'penthouse.png', 'plaza.png', 'studioapartment.png', 'Farmhouse.png'];
+                $imagePath = 'images/' . $placeholders[$property->id % count($placeholders)];
+                if ($property->featured_image && file_exists(public_path('images/' . $property->featured_image))) {
+                    $imagePath = 'images/' . $property->featured_image;
+                }
+              @endphp
               <img
-                src="images/Data-Driven.png"
+                src="{{ asset($imagePath) }}"
                 class="card-img-top"
-                alt="Modern Executive Villa Property"
+                alt="{{ $property->title }}"
                 style="height: 450px; object-fit: cover"
               />
               <div class="position-absolute top-0 start-0 m-3">
                 <span class="badge bg-success">Verified</span>
-                <span class="badge bg-warning text-dark ms-2">Hot Deal</span>
+                @if($property->is_featured)
+                  <span class="badge bg-warning text-dark ms-2">Hot Deal</span>
+                @endif
               </div>
-              <div class="position-absolute bottom-0 end-0 m-3">
+              <div class="position-absolute bottom-0 end-0 m-3 d-flex">
                 <button
                   class="btn btn-light btn-sm"
                   aria-label="Add to favorites"
                 >
                   <i class="far fa-heart"></i>
                 </button>
-                <button
-                  class="btn btn-light btn-sm ms-2"
-                  aria-label="Share property"
-                >
-                  <i class="fas fa-share-alt"></i>
-                </button>
+                <form action="{{ route('compare.add') }}" method="POST" class="ms-2">
+                  @csrf
+                  <input type="hidden" name="property_id" value="{{ $property->id }}">
+                  <button type="submit" class="btn btn-primary btn-sm" aria-label="Compare property">
+                    <i class="fas fa-exchange-alt"></i> Compare
+                  </button>
+                </form>
               </div>
             </div>
             <div class="card-body p-4">
               <div
                 class="d-flex justify-content-between align-items-center mb-3"
               >
-                <h1 class="fw-bold mb-0">Modern Executive Villa</h1>
+                <h1 class="fw-bold mb-0">{{ $property->title }}</h1>
                 <span class="badge bg-success py-2 px-3">Available</span>
               </div>
               <p class="text-muted mb-4">
-                <i class="fas fa-map-marker-alt me-2"></i>DHA Phase 6, Lahore,
-                Pakistan
+                <i class="fas fa-map-marker-alt me-2"></i>{{ $property->city->name ?? 'Unknown' }}, Pakistan
               </p>
 
-              <!-- Pakistan-Specific Features -->
               <div class="mb-4">
-                <span class="badge bg-light text-dark me-1">Corner Plot</span>
-                <span class="badge bg-light text-dark me-1"
-                  >Gated Community</span
-                >
-                <span class="badge bg-light text-dark me-1"
-                  >Possession Ready</span
-                >
-                <span class="badge bg-light text-dark me-1">Park Facing</span>
+                <span class="badge bg-light text-dark me-1">{{ $property->type->name ?? 'Property' }}</span>
+                <span class="badge bg-light text-dark me-1">Gated Community</span>
+                <span class="badge bg-light text-dark me-1">Possession Ready</span>
                 <span class="badge bg-light text-dark">Prime Location</span>
               </div>
 
@@ -122,10 +72,7 @@
                   <i class="fas fa-chart-line me-2"></i>Market Analysis
                 </h5>
                 <p class="mb-3">
-                  This property is identified as a **High-Yield Asset**. Our
-                  analytics show a steady appreciation in this sector. By
-                  requesting the full report, you will gain access to heatmaps
-                  and historical price trends on our interactive map.
+                  {{ $property->description ?? 'This property is identified as a High-Yield Asset. Our analytics show a steady appreciation in this sector. By requesting the full report, you will gain access to heatmaps and historical price trends on our interactive map.' }}
                 </p>
 
                 <div class="row g-3 mb-4">
@@ -176,35 +123,31 @@
                       <td class="fw-bold bg-light" style="width: 40%">
                         Property ID
                       </td>
-                      <td>#PI-9902</td>
+                      <td>#PI-{{ str_pad($property->id, 4, '0', STR_PAD_LEFT) }}</td>
                     </tr>
                     <tr>
                       <td class="fw-bold bg-light">Property Type</td>
-                      <td>House / Villa</td>
+                      <td>{{ $property->type->name ?? 'N/A' }}</td>
                     </tr>
                     <tr>
                       <td class="fw-bold bg-light">Valuation</td>
-                      <td class="text-primary fw-bold">PKR 45,000,000</td>
+                      <td class="text-primary fw-bold">PKR {{ number_format($property->price) }}</td>
                     </tr>
                     <tr>
-                      <td class="fw-bold bg-light">Land Area</td>
-                      <td>1 Kanal (5000 sqft)</td>
-                    </tr>
-                    <tr>
-                      <td class="fw-bold bg-light">Covered Area</td>
-                      <td>3500 sqft</td>
+                      <td class="fw-bold bg-light">Area</td>
+                      <td>{{ number_format($property->area) }} sqft</td>
                     </tr>
                     <tr>
                       <td class="fw-bold bg-light">Bedrooms</td>
-                      <td>5</td>
+                      <td>{{ $property->bedrooms ?: 'N/A' }}</td>
                     </tr>
                     <tr>
                       <td class="fw-bold bg-light">Bathrooms</td>
-                      <td>4</td>
+                      <td>{{ $property->bathrooms ?: 'N/A' }}</td>
                     </tr>
                     <tr>
-                      <td class="fw-bold bg-light">Garage</td>
-                      <td>2 Cars</td>
+                      <td class="fw-bold bg-light">Purpose</td>
+                      <td class="text-capitalize">{{ $property->purpose }}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -217,7 +160,7 @@
                         Development Status
                       </td>
                       <td>
-                        <span class="badge bg-success">Ready to Move</span>
+                        <span class="badge bg-success">Ready</span>
                       </td>
                     </tr>
                     <tr>
@@ -248,10 +191,6 @@
                         <i class="fas fa-shield-alt text-success"></i> 24/7
                       </td>
                     </tr>
-                    <tr>
-                      <td class="fw-bold bg-light">Society Features</td>
-                      <td>Park, Mosque, School</td>
-                    </tr>
                   </tbody>
                 </table>
               </div>
@@ -267,40 +206,26 @@
               <div class="col-md-6">
                 <ul class="small">
                   <li>
-                    <i class="fas fa-check text-success me-2"></i>5 minutes from
-                    DHA Main Boulevard
+                    <i class="fas fa-check text-success me-2"></i>Prime access to main roads
                   </li>
                   <li>
-                    <i class="fas fa-check text-success me-2"></i>Near
-                    Beaconhouse School System
+                    <i class="fas fa-check text-success me-2"></i>Near Educational Institutes
                   </li>
                   <li>
-                    <i class="fas fa-check text-success me-2"></i>Close to
-                    Lahore Medical Complex
-                  </li>
-                  <li>
-                    <i class="fas fa-check text-success me-2"></i>Easy access to
-                    Ring Road
+                    <i class="fas fa-check text-success me-2"></i>Close to Medical Facilities
                   </li>
                 </ul>
               </div>
               <div class="col-md-6">
                 <ul class="small">
                   <li>
-                    <i class="fas fa-check text-success me-2"></i>Walking
-                    distance to commercial area
+                    <i class="fas fa-check text-success me-2"></i>Walking distance to commercial area
                   </li>
                   <li>
-                    <i class="fas fa-check text-success me-2"></i>Park and
-                    playground nearby
+                    <i class="fas fa-check text-success me-2"></i>Park and playground nearby
                   </li>
                   <li>
-                    <i class="fas fa-check text-success me-2"></i>Mosque within
-                    society premises
-                  </li>
-                  <li>
-                    <i class="fas fa-check text-success me-2"></i>Gated
-                    community with security
+                    <i class="fas fa-check text-success me-2"></i>Gated community with security
                   </li>
                 </ul>
               </div>
@@ -342,87 +267,85 @@
             <h5 class="fw-bold mb-4">
               <i class="fas fa-file-alt me-2"></i>Request Analysis
             </h5>
-            <form aria-label="Property analysis request form">
+            <form action="{{ route('property.request', $property->slug) }}" method="POST" aria-label="Property analysis request form">
+              @csrf
               <div class="mb-3">
-                <label for="fullName" class="form-label small fw-bold"
-                  >Full Name</label
-                >
+                <label for="fullName" class="form-label small fw-bold">Full Name</label>
                 <input
                   type="text"
+                  name="full_name"
                   id="fullName"
-                  class="form-control bg-light border-0"
+                  class="form-control bg-light border-0 @error('full_name') is-invalid @enderror"
                   placeholder="Muhammad Umar"
+                  value="{{ old('full_name') }}"
                   required
                 />
+                @error('full_name')
+                  <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
               </div>
               <div class="mb-3">
-                <label for="email" class="form-label small fw-bold"
-                  >Email</label
-                >
+                <label for="email" class="form-label small fw-bold">Email</label>
                 <input
                   type="email"
+                  name="email"
                   id="email"
-                  class="form-control bg-light border-0"
+                  class="form-control bg-light border-0 @error('email') is-invalid @enderror"
                   placeholder="name@example.com"
+                  value="{{ old('email') }}"
                   required
                 />
+                @error('email')
+                  <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
               </div>
               <div class="mb-3">
-                <label for="phone" class="form-label small fw-bold"
-                  >Phone</label
-                >
+                <label for="phone" class="form-label small fw-bold">Phone</label>
                 <input
                   type="tel"
+                  name="phone"
                   id="phone"
-                  class="form-control bg-light border-0"
+                  class="form-control bg-light border-0 @error('phone') is-invalid @enderror"
                   placeholder="+92 300 1234567"
+                  value="{{ old('phone') }}"
                 />
+                @error('phone')
+                  <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
               </div>
               <div class="mb-3">
-                <label for="note" class="form-label small fw-bold"
-                  >Message</label
-                >
+                <label for="note" class="form-label small fw-bold">Message</label>
                 <textarea
+                  name="note"
                   id="note"
-                  class="form-control bg-light border-0"
+                  class="form-control bg-light border-0 @error('note') is-invalid @enderror"
                   rows="3"
                   placeholder="I want to see the location analytics..."
-                ></textarea>
+                >{{ old('note') }}</textarea>
+                @error('note')
+                  <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
               </div>
 
               <div class="form-check mb-3">
-                <input
-                  class="form-check-input"
-                  type="checkbox"
-                  id="scheduleVisit"
-                />
+                <input class="form-check-input" type="checkbox" id="scheduleVisit" name="schedule_visit" />
                 <label class="form-check-label" for="scheduleVisit">
                   Schedule Property Visit
                 </label>
               </div>
 
               <div class="form-check mb-3">
-                <input
-                  class="form-check-input"
-                  type="checkbox"
-                  id="mortgageInfo"
-                />
+                <input class="form-check-input" type="checkbox" id="mortgageInfo" name="mortgage_info" />
                 <label class="form-check-label" for="mortgageInfo">
                   Send Mortgage Information
                 </label>
               </div>
 
-              <button
-                type="submit"
-                class="btn btn-primary w-100 fw-bold py-3 shadow-sm mb-3"
-              >
+              <button type="submit" class="btn btn-primary w-100 fw-bold py-3 shadow-sm mb-3">
                 <i class="fas fa-paper-plane me-2"></i>Request Report & View Map
               </button>
 
-              <a
-                href="{{ route('calculator') }}"
-                class="btn btn-outline-primary w-100 fw-bold"
-              >
+              <a href="{{ route('calculator') }}" class="btn btn-outline-primary w-100 fw-bold">
                 <i class="fas fa-calculator me-2"></i>Calculate Mortgage
               </a>
             </form>
@@ -433,17 +356,11 @@
               <div class="small">
                 <div class="mb-2">
                   <i class="fas fa-phone text-primary me-2"></i>
-                  <a href="tel:+923001234567" class="text-decoration-none"
-                    >+92 300 1234567</a
-                  >
+                  <a href="tel:+923001234567" class="text-decoration-none">+92 300 1234567</a>
                 </div>
                 <div class="mb-2">
                   <i class="fas fa-envelope text-primary me-2"></i>
-                  <a
-                    href="mailto:info@propinsight.pk"
-                    class="text-decoration-none"
-                    >info@propinsight.pk</a
-                  >
+                  <a href="mailto:info@propinsight.pk" class="text-decoration-none">info@propinsight.pk</a>
                 </div>
                 <div class="mb-2">
                   <i class="fas fa-clock text-primary me-2"></i>
@@ -462,16 +379,4 @@
         </aside>
       </div>
     </main>
-
-    <footer class="bg-dark text-white py-4 mt-5 text-center" role="contentinfo">
-      <div class="container">
-        <p class="mb-0">PropInsight&trade; All Rights Reserved.</p>
-      </div>
-    </footer>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="js/script.js"></script>
-  </body>
-</html>
-
-
+@endsection

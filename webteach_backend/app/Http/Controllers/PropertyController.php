@@ -9,6 +9,16 @@ use Illuminate\Http\Request;
 
 class PropertyController extends Controller {
     public function index(Request $request) {
+        $request->validate([
+            'min_price' => 'nullable|numeric|min:0',
+            'max_price' => 'nullable|numeric|gt:min_price',
+            'search' => 'nullable|string|max:100',
+            'city' => 'nullable|exists:cities,slug',
+            'type' => 'nullable|exists:property_types,slug',
+        ], [
+            'max_price.gt' => 'Maximum price must be greater than minimum price.',
+        ]);
+
         $query = Property::with(['city', 'type']);
 
         // Filtering Logic
@@ -47,5 +57,16 @@ class PropertyController extends Controller {
     public function show($slug) {
         $property = Property::with(['city', 'type'])->where('slug', $slug)->firstOrFail();
         return view('pages.property', compact('property'));
+    }
+
+    public function requestAnalysis(Request $request, $slug) {
+        $request->validate([
+            'full_name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'phone' => 'nullable|string|max:20',
+            'note' => 'nullable|string|max:1000',
+        ]);
+        
+        return back()->with('success', 'Analysis request submitted successfully. We will contact you soon.');
     }
 }

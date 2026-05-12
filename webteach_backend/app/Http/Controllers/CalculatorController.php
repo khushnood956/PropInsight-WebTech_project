@@ -6,10 +6,19 @@ use Illuminate\Http\Request;
 
 class CalculatorController extends Controller {
     public function index() {
-        return view('pages.calculator');
+        $cities = \App\Models\City::all();
+        $types = \App\Models\PropertyType::all();
+        return view('pages.calculator', compact('cities', 'types'));
     }
 
     public function calculate(Request $request) {
+        $request->validate([
+            'price' => 'required|numeric|min:100000',
+            'down_payment' => 'required|numeric|min:0|max:100',
+            'tenure' => 'required|integer|min:1|max:25',
+            'interest_rate' => 'required|numeric|min:0|max:30',
+        ]);
+
         $price = $request->input('price', 0);
         $downPaymentPercent = $request->input('down_payment', 0);
         $years = $request->input('tenure', 0);

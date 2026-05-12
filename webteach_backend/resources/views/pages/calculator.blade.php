@@ -1,66 +1,8 @@
-﻿<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Investment Calculator | PropInsight</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    />
-    <link rel="stylesheet" href="css/style.css" />
-  </head>
-  <body class="bg-light">
-    <div
-      id="market-ticker"
-      class="bg-primary text-white text-center py-1 small fw-bold"
-    >
-      Market Feed Initializing...
-    </div>
+@extends('layouts.app')
 
-    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
-      <div class="container">
-        <a class="navbar-brand fw-bold" href="{{ route('home') }}"
-          >PROP<span class="text-primary">INSIGHT</span></a
-        >
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ms-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="{{ route('home') }}">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{{ route('listings.index') }}">Listings</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{{ route('compare') }}">Compare</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active" href="{{ route('calculator') }}">Calculator</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{{ route('map') }}">Map</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+@section('title', 'Investment Calculator')
 
+@section('content')
     <main class="container py-5" role="main">
       <header class="text-center mb-5">
         <h1 class="fw-bold">Pakistan Real Estate Investment Calculator</h1>
@@ -179,10 +121,9 @@
                     class="form-select form-select-lg bg-light border-0"
                     aria-describedby="type-help"
                   >
-                    <option value="residential">Residential</option>
-                    <option value="commercial">Commercial</option>
-                    <option value="apartment">Apartment</option>
-                    <option value="farmhouse">Farm House</option>
+                    @foreach($types as $type)
+                        <option value="{{ $type->slug }}">{{ $type->name }}</option>
+                    @endforeach
                   </select>
                   <div id="type-help" class="form-text small text-muted">
                     Affects loan terms and rates
@@ -198,12 +139,9 @@
                     class="form-select form-select-lg bg-light border-0"
                     aria-describedby="city-help"
                   >
-                    <option value="karachi">Karachi</option>
-                    <option value="lahore">Lahore</option>
-                    <option value="islamabad">Islamabad</option>
-                    <option value="rawalpindi">Rawalpindi</option>
-                    <option value="peshawar">Peshawar</option>
-                    <option value="other">Other</option>
+                    @foreach($cities as $city)
+                        <option value="{{ $city->slug }}">{{ $city->name }}</option>
+                    @endforeach
                   </select>
                   <div id="city-help" class="form-text small text-muted">
                     Location affects property values
@@ -353,17 +291,8 @@
         </div>
       </div>
     </main>
+@endsection
 
-    <footer class="bg-dark text-white py-4 mt-5 text-center" role="contentinfo">
-      <div class="container">
-        <p class="mb-0">PropInsight&trade; All Rights Reserved.</p>
-      </div>
-    </footer>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="js/script.js"></script>
-    <script src="js/calculator-enhanced.js"></script>
-  </body>
-</html>
-
-
+@push('scripts')
+    <script src="{{ asset('js/calculator-enhanced.js') }}"></script>
+@endpush

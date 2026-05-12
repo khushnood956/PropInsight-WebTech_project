@@ -1,50 +1,8 @@
-﻿<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Location Analytics | PropInsight</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="css/style.css" />
-  </head>
-  <body class="bg-light">
-    <div
-      id="market-ticker"
-      class="bg-primary text-white text-center py-1 small fw-bold"
-    >
-      Market Feed Initializing...
-    </div>
+@extends('layouts.app')
 
-    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
-      <div class="container">
-        <a class="navbar-brand fw-bold" href="{{ route('home') }}"
-          >PROP<span class="text-primary">INSIGHT</span></a
-        >
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ms-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="{{ route('home') }}">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{{ route('listings.index') }}">Listings</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{{ route('compare') }}">Compare</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{{ route('calculator') }}">Calculator</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active" href="{{ route('map') }}">Map</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+@section('title', 'Location Analytics')
 
+@section('content')
     <main class="container-fluid p-0">
       <div class="row g-0" style="height: calc(100vh - 100px)">
         <div class="col-lg-3 bg-white shadow-sm p-4 z-1">
@@ -92,10 +50,4 @@
         </div>
       </div>
     </main>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="js/script.js"></script>
-  </body>
-</html>
-
-
+@endsection

@@ -1,66 +1,8 @@
-﻿<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PropInsight | Real Estate Analytics</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    />
-    <link rel="stylesheet" href="css/style.css" />
-  </head>
-  <body>
-    <div
-      id="market-ticker"
-      class="bg-primary text-white text-center py-1 fw-bold small"
-    >
-      Initializing Market Feed...
-    </div>
+@extends('layouts.app')
 
-    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
-      <div class="container">
-        <a class="navbar-brand fw-bold" href="{{ route('home') }}"
-          >PROP<span class="text-primary">INSIGHT</span></a
-        >
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#mainNav"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="mainNav">
-          <ul class="navbar-nav ms-auto">
-            <li class="nav-item">
-              <a class="nav-link active" href="{{ route('home') }}">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{{ route('listings.index') }}">Listings</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{{ route('compare') }}">Compare</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{{ route('calculator') }}">Calculator</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{{ route('map') }}">Map</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+@section('title', 'Real Estate Analytics')
 
+@section('content')
     <header class="hero-section bg-white" role="banner">
       <div class="container py-5">
         <div class="row align-items-center">
@@ -111,7 +53,7 @@
           <div class="col-lg-6 d-none d-lg-block text-end">
             <!-- Add actual analytics dashboard screenshot -->
             <img
-              src="images/Data-Driven.png"
+              src="{{ asset('images/Data-Driven.png') }}"
               alt="Real Estate Analytics Dashboard"
               class="img-fluid rounded-4 shadow-lg"
               style="max-height: 450px;"
@@ -239,16 +181,4 @@
         </div>
       </section>
     </main>
-
-    <footer class="bg-dark text-white py-4 mt-5 text-center" role="contentinfo">
-      <div class="container">
-        <p class="mb-0">PropInsight&trade; All Rights Reserved.</p>
-      </div>
-    </footer>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="js/script.js"></script>
-  </body>
-</html>
-
-
+@endsection

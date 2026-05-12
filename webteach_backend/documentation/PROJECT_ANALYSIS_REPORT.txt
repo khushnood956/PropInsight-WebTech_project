@@ -1,0 +1,82 @@
+# PROJECT ANALYSIS REPORT: PropInsight - Real Estate Analytics Platform
+
+## 1. System Architecture Overview
+PropInsight is built on the Laravel 11 PHP framework, following the Model-View-Controller (MVC) architectural pattern. The system is designed for high maintainability, separating business logic (Controllers), data structure (Models), and the user interface (Blade Templates).
+
+*   **Backend**: PHP 8.2+ with Laravel.
+*   **Database**: MySQL/MariaDB utilizing Eloquent ORM for relationship management.
+*   **Frontend**: Blade Templating Engine, Bootstrap 5.3, and Custom CSS3.
+*   **Workflow**: Request -> Routing -> Middleware (CSRF) -> Controller -> Model -> View.
+
+## 2. Backend Workflow & Routing
+The application uses a centralized routing structure (`routes/web.php`) that maps HTTP requests to specific controller methods.
+*   **HomeController**: Manages the landing page and featured content.
+*   **PropertyController**: Handles property listings, filtering logic, and individual property analysis pages.
+*   **CalculatorController**: Processes mortgage and ROI calculations using financial formulas.
+*   **CompareController**: Manages user-selected property comparisons using Laravel Session state.
+*   **PageController**: Handles static and semi-dynamic pages like the Location Map.
+
+## 3. Database Design & Models
+The data layer is normalized into several key tables managed via Eloquent Relationships:
+
+*   **City Model**: One-to-Many relationship with Properties. Stores names and slugs (e.g., Lahore, Karachi).
+*   **PropertyType Model**: One-to-Many relationship with Properties (e.g., Residential, Commercial, Apartment).
+*   **Property Model**: The core entity. Includes attributes for price, area, bedrooms, bathrooms, and featured status. 
+    *   `belongsTo(City)`
+    *   `belongsTo(PropertyType)`
+*   **Migrations**: Utilizes Laravel Migrations for version-controlled schema management, including foreign key constraints and indexing for search performance.
+
+## 4. Feature Modules
+### 4.1. Dynamic Property Inventory
+*   **Internal Logic**: Uses Eloquent's `with()` for eager loading to prevent N+1 query issues.
+*   **Filtering**: Implements a robust query builder that handles Search keywords, City slugs, Type slugs, and Price Range (Min/Max).
+*   **Pagination**: Uses Laravel's built-in pagination to handle large datasets efficiently.
+
+### 4.2. Property Comparison Matrix
+*   **Mechanism**: Utilizes a 3-slot system stored in the Laravel Session.
+*   **UI**: Features dynamic dropdowns populated from the `properties` table.
+*   **Persistence**: Selections persist across browser refreshes, allowing users to browse and add properties over time.
+
+### 4.3. Investment Calculator
+*   **Formula**: Implements a standard Mortgage/EMI formula: `M = P [ i(1 + i)^n ] / [ (1 + i)^n – 1 ]`.
+*   **Pakistan Specifics**: Configured for 11-13% interest rates (KIBOR + spread) and loan tenures up to 25 years.
+*   **ROI**: Projects annual rental yield and 5-year appreciation based on property valuation.
+
+### 4.4. Image & Fallback System
+*   **Logic**: The system checks for existing images in the `public/images` directory.
+*   **Fallback**: If a property lacks a unique image, it uses a deterministic rotation of placeholder images (`p1.jpg`, `p2.jpg`, etc.) based on the Property ID to ensure visual consistency.
+
+## 5. Frontend & Blade Layout System
+The project implements a DRY (Don't Repeat Yourself) approach using a Master Layout.
+*   **layouts/app.blade.php**: Contains the global HTML wrapper, Navbar, Footer, and Ticker.
+*   **Navigation Logic**: Uses `Route::is()` to dynamically apply `.active` classes to the current menu item.
+*   **Sections**: Child views utilize `@extends`, `@section`, and `@endsection` to inject content into the master layout.
+
+## 6. Validation & Security
+### 6.1. Validation Rules
+Implemented in Controllers using `$request->validate()`:
+*   **Price Logic**: `max_price` must be `gt:min_price` (Greater Than).
+*   **Calculator**: Numeric constraints, min/max ranges for tenure (1-25) and rates (0-30).
+*   **Forms**: `required`, `email`, and `string` validations on lead generation forms.
+
+### 6.2. Security Measures
+*   **CSRF Protection**: Every POST form includes the `@csrf` token to prevent cross-site forgery.
+*   **SQL Injection**: Prevented by using Eloquent's parameterized queries.
+*   **XSS Protection**: Blade's `{{ }}` syntax automatically escapes output to prevent malicious script injection.
+
+## 7. Refactoring Notes
+During development, the project underwent a significant stabilization phase:
+*   **Eliminated Redundancy**: Removed duplicate HTML boilerplate from 6+ files into a single layout.
+*   **Controller Transition**: Converted all closure-based routes to structured Controller methods for better scalability.
+*   **Static to Dynamic**: Replaced 100% of hardcoded comparison and property data with live database records.
+
+## 8. Limitations & Future Improvements
+*   **Authentication**: Currently, the system is public. Implementing a User Auth system for "Saved Properties" would be a logical next step.
+*   **Real-time Ticker**: The market ticker is currently a UI placeholder; it could be connected to a live Financial API.
+*   **Admin Dashboard**: Future development could include a CRUD interface for adding properties without manually seeding the database.
+
+## 9. Conclusion
+PropInsight is a robust, data-driven application that demonstrates professional-grade Laravel implementation. By combining strict validation, efficient database relationships, and a modern component-based frontend, the platform provides a scalable solution for real estate analytics in Pakistan.
+
+---
+© 2026 PropInsight Technical Documentation.

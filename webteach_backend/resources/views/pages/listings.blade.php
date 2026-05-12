@@ -1,66 +1,8 @@
-﻿<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Property Listings | PropInsight</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    />
-    <link rel="stylesheet" href="css/style.css" />
-  </head>
-  <body class="bg-light">
-    <div
-      id="market-ticker"
-      class="bg-primary text-white text-center py-1 small fw-bold"
-    >
-      Market Feed Initializing...
-    </div>
+@extends('layouts.app')
 
-    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
-      <div class="container">
-        <a class="navbar-brand fw-bold" href="{{ route('home') }}"
-          >PROP<span class="text-primary">INSIGHT</span></a
-        >
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ms-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="{{ route('home') }}">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active" href="{{ route('listings.index') }}">Listings</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{{ route('compare') }}">Compare</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{{ route('calculator') }}">Calculator</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{{ route('map') }}">Map</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+@section('title', 'Property Listings')
 
+@section('content')
     <div class="container py-5">
       <div class="row">
         <aside class="col-lg-3 mb-4" role="complementary">
@@ -96,12 +38,18 @@
                 <label class="form-label small fw-bold">Price Range (PKR)</label>
                 <div class="row g-2">
                   <div class="col-6">
-                    <input type="number" name="min_price" class="form-control border-0 bg-light small" placeholder="Min" value="{{ request('min_price') }}">
+                    <input type="number" name="min_price" class="form-control border-0 bg-light small @error('min_price') is-invalid @enderror" placeholder="Min" value="{{ request('min_price') }}">
                   </div>
                   <div class="col-6">
-                    <input type="number" name="max_price" class="form-control border-0 bg-light small" placeholder="Max" value="{{ request('max_price') }}">
+                    <input type="number" name="max_price" class="form-control border-0 bg-light small @error('max_price') is-invalid @enderror" placeholder="Max" value="{{ request('max_price') }}">
                   </div>
                 </div>
+                @error('max_price')
+                  <div class="text-danger extra-small mt-1">{{ $message }}</div>
+                @enderror
+                @error('min_price')
+                  <div class="text-danger extra-small mt-1">{{ $message }}</div>
+                @enderror
               </div>
               
               <button type="submit" class="btn btn-primary w-100 mt-3">
@@ -175,7 +123,11 @@
                     <span class="small text-muted">Posted {{ $property->created_at->diffForHumans() }}</span>
                     <div class="btn-group">
                       <a href="{{ route('property.show', ['slug' => $property->slug]) }}" class="btn btn-outline-primary btn-sm px-3">View</a>
-                      <a href="{{ route('compare') }}" class="btn btn-primary btn-sm px-3">Compare</a>
+                      <form action="{{ route('compare.add') }}" method="POST" class="m-0 p-0 d-inline">
+                        @csrf
+                        <input type="hidden" name="property_id" value="{{ $property->id }}">
+                        <button type="submit" class="btn btn-primary btn-sm px-3" style="border-top-left-radius: 0; border-bottom-left-radius: 0;">Compare</button>
+                      </form>
                     </div>
                   </div>
                 </div>
@@ -202,16 +154,4 @@
         </main>
       </div>
     </div>
-
-    <footer class="bg-dark text-white py-4 mt-5 text-center" role="contentinfo">
-      <div class="container">
-        <p class="mb-0">PropInsight&trade; All Rights Reserved.</p>
-      </div>
-    </footer>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="js/script.js"></script>
-  </body>
-</html>
-
-
+@endsection
