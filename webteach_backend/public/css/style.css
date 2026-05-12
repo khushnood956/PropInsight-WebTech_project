@@ -1,0 +1,175 @@
+/* Custom Branding Colors */
+:root {
+  --brand-dark: #121416;
+  --brand-blue: #0d6efd;
+  --brand-success: #198754;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  background-color: #f4f7f6;
+  color: #212529;
+}
+
+/* Lab 05: Navbar Layout */
+.navbar {
+  background-color: var(--brand-dark) !important;
+  border-bottom: 2px solid var(--brand-blue);
+  padding: 0.8rem 0;
+}
+
+.navbar-brand {
+  letter-spacing: -1px;
+  font-size: 1.5rem;
+}
+
+/* Property Card Enhancements */
+.prop-card {
+  border-radius: 12px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  background: #fff;
+}
+
+.prop-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1) !important;
+}
+
+.prop-card .card-img-top {
+  height: 240px;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.prop-card:hover .card-img-top {
+  transform: scale(1.05);
+}
+
+.price-tag {
+  border-radius: 8px 0 0 0;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+
+.extra-small {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 600;
+}
+
+/* Filter Sidebar Styling */
+aside .card {
+  position: sticky;
+  top: 100px;
+  border-radius: 12px;
+}
+
+.form-select, .form-control {
+  font-size: 0.9rem;
+  padding: 0.6rem 1rem;
+}
+
+/* Pagination Styling */
+.pagination {
+  gap: 5px;
+}
+
+.page-link {
+  border: none;
+  border-radius: 8px !important;
+  color: var(--brand-dark);
+  font-weight: 600;
+  padding: 8px 16px;
+}
+
+.page-item.active .page-link {
+  background-color: var(--brand-blue);
+  box-shadow: 0 4px 10px rgba(13, 110, 253, 0.2);
+}
+
+/* Utility Classes */
+.bg-light {
+  background-color: #f8f9fa !important;
+}
+
+/* Ensure images fit the layout */
+.prop-card img {
+  height: 220px;
+  object-fit: cover;
+}
+
+.btn-group .btn {
+  padding: 10px;
+  font-weight: 600;
+}
+/* Table Styling */
+.table-responsive {
+  border: 1px solid #eee;
+}
+
+.table thead th {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #666;
+}
+
+.table tbody td {
+  padding: 20px 15px;
+  font-size: 0.95rem;
+}
+
+/* Rounded corners for the table container */
+.rounded-4 {
+  border-radius: 1rem !important;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.rounded-4 {
+  border-radius: 1.25rem !important;
+}
+
+#resultBox {
+  transition: all 0.4s ease;
+}
+/* Full height map layout */
+.z-1 {
+  z-index: 1;
+}
+
+main.container-fluid {
+  overflow: hidden;
+}
+
+/* Sidebar styling for map page */
+.col-lg-3 {
+  border-right: 1px solid #dee2e6;
+  overflow-y: auto;
+}
+/* Property Details Table */
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+.table td {
+  padding: 12px 15px;
+  font-size: 0.95rem;
+}
+
+/* Form focus effect */
+.form-control:focus,
+.form-select:focus {
+  background-color: #fff !important;
+  border: 1px solid #0d6efd !important;
+  box-shadow: 0 0 0 0.25 row rgba(13, 110, 253, 0.1) !important;
+}

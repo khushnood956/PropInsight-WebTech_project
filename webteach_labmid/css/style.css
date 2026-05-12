@@ -1,0 +1,148 @@
+/* Custom Branding Colors */
+:root {
+  --brand-dark: #121416;
+  --brand-blue: #0d6efd;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  background-color: #f8f9fa;
+  color: #212529;
+}
+
+/* Lab 05: Navbar Layout */
+.navbar {
+  background-color: var(--brand-dark) !important;
+  border-bottom: 2px solid var(--brand-blue);
+  padding: 0.8rem 0;
+}
+
+.navbar-brand {
+  letter-spacing: -1px;
+  font-size: 1.5rem;
+}
+
+/* Hero Section Styles */
+.hero-section {
+  border-bottom: 1px solid #dee2e6;
+}
+
+/* Lab 05: Property Card Box Model & Shadows */
+.prop-card {
+  border-radius: 16px;
+  transition: all 0.3s ease;
+}
+
+.prop-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12) !important;
+}
+
+.prop-card img {
+  height: 220px;
+  object-fit: cover;
+  border-radius: 16px 16px 0 0;
+}
+
+/* Lab 08: Ticker Style */
+#market-ticker {
+  font-size: 0.75rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* Forms Styling */
+.form-control:focus {
+  box-shadow: none;
+  border-color: var(--brand-blue);
+}
+/* Sidebar Styling */
+aside .card {
+  position: sticky;
+  top: 100px;
+}
+
+.form-check-label {
+  font-size: 0.9rem;
+}
+
+/* Ensure images fit the layout */
+.prop-card img {
+  height: 180px;
+  object-fit: cover;
+}
+
+.btn-group .btn {
+  padding: 10px;
+  font-weight: 600;
+}
+/* Table Styling */
+.table-responsive {
+  border: 1px solid #eee;
+}
+
+.table thead th {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #666;
+}
+
+.table tbody td {
+  padding: 20px 15px;
+  font-size: 0.95rem;
+}
+
+/* Rounded corners for the table container */
+.rounded-4 {
+  border-radius: 1rem !important;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.rounded-4 {
+  border-radius: 1.25rem !important;
+}
+
+#resultBox {
+  transition: all 0.4s ease;
+}
+/* Full height map layout */
+.z-1 {
+  z-index: 1;
+}
+
+main.container-fluid {
+  overflow: hidden;
+}
+
+/* Sidebar styling for map page */
+.col-lg-3 {
+  border-right: 1px solid #dee2e6;
+  overflow-y: auto;
+}
+/* Property Details Table */
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+.table td {
+  padding: 12px 15px;
+  font-size: 0.95rem;
+}
+
+/* Form focus effect */
+.form-control:focus,
+.form-select:focus {
+  background-color: #fff !important;
+  border: 1px solid #0d6efd !important;
+  box-shadow: 0 0 0 0.25 row rgba(13, 110, 253, 0.1) !important;
+}

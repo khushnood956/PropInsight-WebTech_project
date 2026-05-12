@@ -1,0 +1,581 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PropInsight | Real Estate Analytics</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div
+      id="market-ticker"
+      class="bg-primary text-white text-center py-1 fw-bold small"
+    >
+      Initializing Market Feed...
+    </div>
+
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+      <div class="container">
+        <a class="navbar-brand fw-bold" href="index.html"
+          >PROP<span class="text-primary">INSIGHT</span></a
+        >
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#mainNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mainNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link active" href="index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="listings.html">Listings</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="compare.html">Compare</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="calculator.html">Calculator</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="map.html">Map</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <header class="hero-section bg-white" role="banner">
+      <div class="container py-5">
+        <div class="row align-items-center">
+          <div class="col-lg-6">
+            <h1 class="display-5 fw-bold text-dark">
+              Data-Driven <span class="text-primary">Real Estate</span>
+            </h1>
+            <p class="lead text-muted mb-4">
+              Analyze property values, market trends, and investment risks using
+              our mid-project analytics engine.
+            </p>
+
+            <div
+              class="search-box p-2 shadow-sm border rounded-3 bg-light"
+              role="search"
+            >
+              <form class="row g-0" aria-label="Property search">
+                <div class="col-8">
+                  <label for="searchInput" class="visually-hidden"
+                    >Search City or Area</label
+                  >
+                  <input
+                    type="text"
+                    id="searchInput"
+                    class="form-control border-0 bg-transparent"
+                    placeholder="Search City or Area..."
+                    aria-label="Search property location"
+                  />
+                </div>
+                <div class="col-4">
+                  <button
+                    type="submit"
+                    class="btn btn-primary w-100"
+                    aria-label="Search properties"
+                  >
+                    Search
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="col-lg-6 d-none d-lg-block text-end">
+            <!-- Add actual analytics dashboard screenshot -->
+            <img
+              src="images/Data-Driven.png"
+              alt="Real Estate Analytics Dashboard"
+              class="img-fluid rounded-4 shadow"
+            />
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="container py-5" role="main">
+      <section aria-labelledby="trending-heading">
+        <div class="d-flex justify-content-between align-items-end mb-4">
+          <h2 id="trending-heading" class="fw-bold">Trending Now</h2>
+          <a
+            href="listings.html"
+            class="text-primary text-decoration-none fw-bold"
+            >View All Listings →</a
+          >
+        </div>
+
+        <div class="row g-4">
+          <!-- Property 1: Executive Suite -->
+          <article class="col-md-4">
+            <div class="card h-100 prop-card shadow-sm border-0">
+              <div class="badge-container position-relative">
+                <!-- Add actual property image - Executive Suite in DHA Lahore -->
+                <img
+                  src="images/p1.jpg"
+                  class="card-img-top"
+                  alt="Executive Suite Property"
+                />
+                <span
+                  class="badge bg-success position-absolute top-0 start-0 m-3"
+                  >Verified</span
+                >
+                <span
+                  class="badge bg-warning text-dark position-absolute top-0 end-0 m-3"
+                  >Hot Deal</span
+                >
+              </div>
+              <div class="card-body">
+                <h5 class="card-title fw-bold">Executive Suite</h5>
+                <p class="text-primary fw-bold mb-1">PKR 14,500,000</p>
+                <p class="small text-muted mb-2">DHA Phase 6, Lahore</p>
+
+                <!-- Pakistan-Specific Property Attributes -->
+                <div class="mb-3">
+                  <span class="badge bg-light text-dark me-1"
+                    >Prime Location</span
+                  >
+                  <span class="badge bg-light text-dark me-1"
+                    >Gated Community</span
+                  >
+                  <span class="badge bg-light text-dark">Possession Ready</span>
+                </div>
+
+                <div
+                  class="d-flex justify-content-between border-top pt-3 mt-3 small text-muted"
+                >
+                  <span><i class="fas fa-bed"></i> 3 Bed</span>
+                  <span><i class="fas fa-bath"></i> 2 Bath</span>
+                  <span><i class="fas fa-ruler-combined"></i> 1250 sqft</span>
+                </div>
+
+                <!-- Additional Pakistan-Specific Details -->
+                <div class="mt-3 small text-muted">
+                  <div class="d-flex justify-content-between mb-1">
+                    <span>Property Type:</span>
+                    <span class="fw-bold">Apartment</span>
+                  </div>
+                  <div class="d-flex justify-content-between mb-1">
+                    <span>Development Status:</span>
+                    <span class="fw-bold text-success">Ready</span>
+                  </div>
+                  <div class="d-flex justify-content-between mb-1">
+                    <span>Payment Plan:</span>
+                    <span class="fw-bold">Full Payment</span>
+                  </div>
+                  <div class="d-flex justify-content-between">
+                    <span>Utilities:</span>
+                    <span class="fw-bold">All Available</span>
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer bg-transparent border-0 pb-3">
+                <a href="property.html" class="btn btn-outline-dark w-100"
+                  >Analyze Data</a
+                >
+              </div>
+            </div>
+          </article>
+
+          <!-- Property 2: Luxury Villa -->
+          <article class="col-md-4">
+            <div class="card h-100 prop-card shadow-sm border-0">
+              <div class="badge-container position-relative">
+                <!-- Add actual property image - Luxury Villa in Bahria Town -->
+                <img
+                  src="images/p2.jpg"
+                  class="card-img-top"
+                  alt="Luxury Villa Property"
+                />
+                <span
+                  class="badge bg-success position-absolute top-0 start-0 m-3"
+                  >Verified</span
+                >
+                <span class="badge bg-info position-absolute top-0 end-0 m-3"
+                  >New Listing</span
+                >
+              </div>
+              <div class="card-body">
+                <h5 class="card-title fw-bold">Luxury Villa</h5>
+                <p class="text-primary fw-bold mb-1">PKR 28,750,000</p>
+                <p class="small text-muted mb-2">
+                  Bahria Town Phase 8, Islamabad
+                </p>
+
+                <div class="mb-3">
+                  <span class="badge bg-light text-dark me-1">Corner Plot</span>
+                  <span class="badge bg-light text-dark me-1">Park Facing</span>
+                  <span class="badge bg-light text-dark">Premium</span>
+                </div>
+
+                <div
+                  class="d-flex justify-content-between border-top pt-3 mt-3 small text-muted"
+                >
+                  <span><i class="fas fa-bed"></i> 5 Bed</span>
+                  <span><i class="fas fa-bath"></i> 4 Bath</span>
+                  <span><i class="fas fa-ruler-combined"></i> 3500 sqft</span>
+                </div>
+
+                <div class="mt-3 small text-muted">
+                  <div class="d-flex justify-content-between mb-1">
+                    <span>Property Type:</span>
+                    <span class="fw-bold">House</span>
+                  </div>
+                  <div class="d-flex justify-content-between mb-1">
+                    <span>Development Status:</span>
+                    <span class="fw-bold text-success">Ready</span>
+                  </div>
+                  <div class="d-flex justify-content-between mb-1">
+                    <span>Payment Plan:</span>
+                    <span class="fw-bold">Installment</span>
+                  </div>
+                  <div class="d-flex justify-content-between">
+                    <span>Security:</span>
+                    <span class="fw-bold">24/7</span>
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer bg-transparent border-0 pb-3">
+                <a href="property.html" class="btn btn-outline-dark w-100"
+                  >Analyze Data</a
+                >
+              </div>
+            </div>
+          </article>
+
+          <!-- Property 3: Commercial Plaza -->
+          <article class="col-md-4">
+            <div class="card h-100 prop-card shadow-sm border-0">
+              <div class="badge-container position-relative">
+                <!-- Add actual property image - Commercial Plaza in Clifton -->
+                <img
+                  src="images/plaza.png"
+                  class="card-img-top"
+                  alt="Commercial Plaza Property"
+                />
+                <span
+                  class="badge bg-danger position-absolute top-0 start-0 m-3"
+                  >Premium</span
+                >
+                <span
+                  class="badge bg-warning text-dark position-absolute top-0 end-0 m-3"
+                  >High ROI</span
+                >
+              </div>
+              <div class="card-body">
+                <h5 class="card-title fw-bold">Commercial Plaza</h5>
+                <p class="text-primary fw-bold mb-1">PKR 45,000,000</p>
+                <p class="small text-muted mb-2">Clifton Block 5, Karachi</p>
+
+                <div class="mb-3">
+                  <span class="badge bg-light text-dark me-1"
+                    >Main Boulevard</span
+                  >
+                  <span class="badge bg-light text-dark me-1">Basement</span>
+                  <span class="badge bg-light text-dark">Investment</span>
+                </div>
+
+                <div
+                  class="d-flex justify-content-between border-top pt-3 mt-3 small text-muted"
+                >
+                  <span><i class="fas fa-store"></i> Ground + 3</span>
+                  <span><i class="fas fa-car"></i> Parking</span>
+                  <span><i class="fas fa-ruler-combined"></i> 8000 sqft</span>
+                </div>
+
+                <div class="mt-3 small text-muted">
+                  <div class="d-flex justify-content-between mb-1">
+                    <span>Property Type:</span>
+                    <span class="fw-bold">Commercial</span>
+                  </div>
+                  <div class="d-flex justify-content-between mb-1">
+                    <span>Zoning:</span>
+                    <span class="fw-bold">Commercial</span>
+                  </div>
+                  <div class="d-flex justify-content-between mb-1">
+                    <span>Rental Yield:</span>
+                    <span class="fw-bold text-success">8-10%</span>
+                  </div>
+                  <div class="d-flex justify-content-between">
+                    <span>Approval:</span>
+                    <span class="fw-bold">KDA Approved</span>
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer bg-transparent border-0 pb-3">
+                <a href="property.html" class="btn btn-outline-dark w-100"
+                  >Analyze Data</a
+                >
+              </div>
+            </div>
+          </article>
+
+          <!-- Property 4: Farm House -->
+          <article class="col-md-4">
+            <div class="card h-100 prop-card shadow-sm border-0">
+              <div class="badge-container position-relative">
+                <!-- Add actual property image - Farm House in Chak Shahzad -->
+                <img
+                  src="images/farmhouse.png"
+                  class="card-img-top"
+                  alt="Farm House Property"
+                />
+                <span
+                  class="badge bg-success position-absolute top-0 start-0 m-3"
+                  >Verified</span
+                >
+                <span
+                  class="badge bg-secondary position-absolute top-0 end-0 m-3"
+                  >Exclusive</span
+                >
+              </div>
+              <div class="card-body">
+                <h5 class="card-title fw-bold">Farm House</h5>
+                <p class="text-primary fw-bold mb-1">PKR 18,900,000</p>
+                <p class="small text-muted mb-2">Chak Shahzad, Islamabad</p>
+
+                <div class="mb-3">
+                  <span class="badge bg-light text-dark me-1">1 Kanal</span>
+                  <span class="badge bg-light text-dark me-1">Peaceful</span>
+                  <span class="badge bg-light text-dark">Scenic</span>
+                </div>
+
+                <div
+                  class="d-flex justify-content-between border-top pt-3 mt-3 small text-muted"
+                >
+                  <span><i class="fas fa-bed"></i> 4 Bed</span>
+                  <span><i class="fas fa-bath"></i> 3 Bath</span>
+                  <span><i class="fas fa-tree"></i> 5000 sqft</span>
+                </div>
+
+                <div class="mt-3 small text-muted">
+                  <div class="d-flex justify-content-between mb-1">
+                    <span>Property Type:</span>
+                    <span class="fw-bold">Farm House</span>
+                  </div>
+                  <div class="d-flex justify-content-between mb-1">
+                    <span>Land Area:</span>
+                    <span class="fw-bold">1 Kanal</span>
+                  </div>
+                  <div class="d-flex justify-content-between mb-1">
+                    <span>Water Supply:</span>
+                    <span class="fw-bold text-success">Tube Well</span>
+                  </div>
+                  <div class="d-flex justify-content-between">
+                    <span>Access Road:</span>
+                    <span class="fw-bold">Metalled</span>
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer bg-transparent border-0 pb-3">
+                <a href="property.html" class="btn btn-outline-dark w-100"
+                  >Analyze Data</a
+                >
+              </div>
+            </div>
+          </article>
+
+          <!-- Property 5: Studio Apartment -->
+          <article class="col-md-4">
+            <div class="card h-100 prop-card shadow-sm border-0">
+              <div class="badge-container position-relative">
+                <!-- Add actual property image - Studio Apartment in Gulberg -->
+                <img
+                  src="images/studioapartment.png"
+                  class="card-img-top"
+                  alt="Studio Apartment Property"
+                />
+                <span class="badge bg-info position-absolute top-0 start-0 m-3"
+                  >Budget Friendly</span
+                >
+                <span
+                  class="badge bg-warning text-dark position-absolute top-0 end-0 m-3"
+                  >Rental</span
+                >
+              </div>
+              <div class="card-body">
+                <h5 class="card-title fw-bold">Studio Apartment</h5>
+                <p class="text-primary fw-bold mb-1">PKR 6,800,000</p>
+                <p class="small text-muted mb-2">Gulberg III, Lahore</p>
+
+                <div class="mb-3">
+                  <span class="badge bg-light text-dark me-1">Furnished</span>
+                  <span class="badge bg-light text-dark me-1">Main Road</span>
+                  <span class="badge bg-light text-dark">Compact</span>
+                </div>
+
+                <div
+                  class="d-flex justify-content-between border-top pt-3 mt-3 small text-muted"
+                >
+                  <span><i class="fas fa-bed"></i> Studio</span>
+                  <span><i class="fas fa-bath"></i> 1 Bath</span>
+                  <span><i class="fas fa-ruler-combined"></i> 450 sqft</span>
+                </div>
+
+                <div class="mt-3 small text-muted">
+                  <div class="d-flex justify-content-between mb-1">
+                    <span>Property Type:</span>
+                    <span class="fw-bold">Apartment</span>
+                  </div>
+                  <div class="d-flex justify-content-between mb-1">
+                    <span>Floor:</span>
+                    <span class="fw-bold">3rd Floor</span>
+                  </div>
+                  <div class="d-flex justify-content-between mb-1">
+                    <span>Maintenance:</span>
+                    <span class="fw-bold text-success">Included</span>
+                  </div>
+                  <div class="d-flex justify-content-between">
+                    <span>Lift:</span>
+                    <span class="fw-bold">Available</span>
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer bg-transparent border-0 pb-3">
+                <a href="property.html" class="btn btn-outline-dark w-100"
+                  >Analyze Data</a
+                >
+              </div>
+            </div>
+          </article>
+
+          <!-- Property 6: Penthouse -->
+          <article class="col-md-4">
+            <div class="card h-100 prop-card shadow-sm border-0">
+              <div class="badge-container position-relative">
+                <!-- Add actual property image - Penthouse in DHA Karachi -->
+                <img
+                  src="images/penthouse.png"
+                  class="card-img-top"
+                  alt="Penthouse Property"
+                />
+                <span
+                  class="badge bg-danger position-absolute top-0 start-0 m-3"
+                  >Luxury</span
+                >
+                <span class="badge bg-success position-absolute top-0 end-0 m-3"
+                  >Top Floor</span
+                >
+              </div>
+              <div class="card-body">
+                <h5 class="card-title fw-bold">Penthouse</h5>
+                <p class="text-primary fw-bold mb-1">PKR 35,000,000</p>
+                <p class="small text-muted mb-2">DHA Phase 8, Karachi</p>
+
+                <div class="mb-3">
+                  <span class="badge bg-light text-dark me-1">Sea View</span>
+                  <span class="badge bg-light text-dark me-1">Rooftop</span>
+                  <span class="badge bg-light text-dark">Exclusive</span>
+                </div>
+
+                <div
+                  class="d-flex justify-content-between border-top pt-3 mt-3 small text-muted"
+                >
+                  <span><i class="fas fa-bed"></i> 4 Bed</span>
+                  <span><i class="fas fa-bath"></i> 3 Bath</span>
+                  <span><i class="fas fa-ruler-combined"></i> 2800 sqft</span>
+                </div>
+
+                <div class="mt-3 small text-muted">
+                  <div class="d-flex justify-content-between mb-1">
+                    <span>Property Type:</span>
+                    <span class="fw-bold">Penthouse</span>
+                  </div>
+                  <div class="d-flex justify-content-between mb-1">
+                    <span>View:</span>
+                    <span class="fw-bold text-info">Sea View</span>
+                  </div>
+                  <div class="d-flex justify-content-between mb-1">
+                    <span>Parking:</span>
+                    <span class="fw-bold">2 Cars</span>
+                  </div>
+                  <div class="d-flex justify-content-between">
+                    <span>Amenities:</span>
+                    <span class="fw-bold">Full</span>
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer bg-transparent border-0 pb-3">
+                <a href="property.html" class="btn btn-outline-dark w-100"
+                  >Analyze Data</a
+                >
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- Market Insights Section -->
+      <section class="mt-5 pt-5" aria-labelledby="insights-heading">
+        <h2 id="insights-heading" class="fw-bold mb-4">Market Insights</h2>
+        <div class="row g-4">
+          <div class="col-md-3">
+            <div class="card text-center border-0 shadow-sm">
+              <div class="card-body">
+                <h3 class="text-primary fw-bold">8.2%</h3>
+                <p class="small text-muted mb-0">Annual Growth</p>
+                <p class="small text-success">+2.1% vs last year</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card text-center border-0 shadow-sm">
+              <div class="card-body">
+                <h3 class="text-primary fw-bold">245</h3>
+                <p class="small text-muted mb-0">Active Listings</p>
+                <p class="small text-success">+18 this week</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card text-center border-0 shadow-sm">
+              <div class="card-body">
+                <h3 class="text-primary fw-bold">PKR 15.2L</h3>
+                <p class="small text-muted mb-0">Avg. Price/sqft</p>
+                <p class="small text-warning">Stable</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card text-center border-0 shadow-sm">
+              <div class="card-body">
+                <h3 class="text-primary fw-bold">32</h3>
+                <p class="small text-muted mb-0">Days on Market</p>
+                <p class="small text-danger">-5 days vs avg</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="bg-dark text-white py-4 mt-5 text-center" role="contentinfo">
+      <div class="container">
+        <p class="mb-0">PropInsight&trade; All Rights Reserved.</p>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/script.js"></script>
+  </body>
+</html>

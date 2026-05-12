@@ -1,0 +1,606 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Property Listings | PropInsight</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body class="bg-light">
+    <div
+      id="market-ticker"
+      class="bg-primary text-white text-center py-1 small fw-bold"
+    >
+      Market Feed Initializing...
+    </div>
+
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+      <div class="container">
+        <a class="navbar-brand fw-bold" href="index.html"
+          >PROP<span class="text-primary">INSIGHT</span></a
+        >
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="listings.html">Listings</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="compare.html">Compare</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="calculator.html">Calculator</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="map.html">Map</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container py-5">
+      <div class="row">
+        <aside class="col-lg-3 mb-4" role="complementary">
+          <div class="card border-0 shadow-sm p-4">
+            <h5 class="fw-bold mb-4">Filters</h5>
+            <form aria-label="Property filters">
+              <div class="mb-3">
+                <label for="locationFilter" class="form-label small fw-bold"
+                  >Location</label
+                >
+                <select
+                  id="locationFilter"
+                  class="form-select border-0 bg-light"
+                >
+                  <option>All Cities</option>
+                  <option>Lahore</option>
+                  <option>Islamabad</option>
+                  <option>Karachi</option>
+                  <option>Rawalpindi</option>
+                  <option>Peshawar</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label class="form-label small fw-bold">Property Type</label>
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="residential"
+                    checked
+                  />
+                  <label class="form-check-label" for="residential"
+                    >Residential</label
+                  >
+                </div>
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="commercial"
+                  />
+                  <label class="form-check-label" for="commercial"
+                    >Commercial</label
+                  >
+                </div>
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="farmhouse"
+                  />
+                  <label class="form-check-label" for="farmhouse"
+                    >Farm House</label
+                  >
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="priceRange" class="form-label small fw-bold"
+                  >Price Range (PKR)</label
+                >
+                <input
+                  type="range"
+                  id="priceRange"
+                  class="form-range"
+                  min="0"
+                  max="100"
+                  value="50"
+                />
+                <div class="d-flex justify-content-between small text-muted">
+                  <span>5 Lac</span>
+                  <span>10 Crore</span>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label class="form-label small fw-bold">Area Size</label>
+                <select class="form-select border-0 bg-light">
+                  <option>All Sizes</option>
+                  <option>Less than 500 sqft</option>
+                  <option>500-1000 sqft</option>
+                  <option>1000-2000 sqft</option>
+                  <option>2000-5000 sqft</option>
+                  <option>Above 5000 sqft</option>
+                  <option>1 Kanal</option>
+                  <option>2 Kanal</option>
+                </select>
+              </div>
+              <div class="mb-4">
+                <label class="form-label small fw-bold">Special Features</label>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="gated" />
+                  <label class="form-check-label" for="gated"
+                    >Gated Community</label
+                  >
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="corner" />
+                  <label class="form-check-label" for="corner"
+                    >Corner Plot</label
+                  >
+                </div>
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="possession"
+                  />
+                  <label class="form-check-label" for="possession"
+                    >Possession Ready</label
+                  >
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary w-100">
+                Apply Filters
+              </button>
+            </form>
+          </div>
+        </aside>
+
+        <main class="col-lg-9" role="main">
+          <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="fw-bold mb-0">Property Inventory</h1>
+            <span class="text-muted small">Showing 12 Properties</span>
+          </div>
+
+          <div class="row g-4">
+            <!-- Property 1: Modern Villa -->
+            <article class="col-md-6">
+              <div class="card prop-card shadow-sm h-100 border-0">
+                <div class="badge-container position-relative">
+                  <!-- Add actual property image - Modern Villa in Sector H Islamabad -->
+                  <img
+                    src="images/p2.jpg"
+                    class="card-img-top"
+                    alt="Modern Villa Property"
+                  />
+                  <span
+                    class="badge bg-success position-absolute top-0 start-0 m-3"
+                    >Verified</span
+                  >
+                  <span
+                    class="badge bg-warning text-dark position-absolute top-0 end-0 m-3"
+                    >Hot Deal</span
+                  >
+                </div>
+                <div class="card-body">
+                  <div
+                    class="d-flex justify-content-between align-items-start mb-2"
+                  >
+                    <h5 class="fw-bold">Modern Villa</h5>
+                    <span class="text-primary fw-bold">PKR 25M</span>
+                  </div>
+                  <p class="text-muted small mb-3">Sector H, Islamabad</p>
+
+                  <!-- Pakistan-Specific Features -->
+                  <div class="mb-3">
+                    <span class="badge bg-light text-dark me-1"
+                      >Corner Plot</span
+                    >
+                    <span class="badge bg-light text-dark me-1"
+                      >Gated Community</span
+                    >
+                    <span class="badge bg-light text-dark"
+                      >Possession Ready</span
+                    >
+                  </div>
+
+                  <div
+                    class="d-flex justify-content-between small text-muted mb-3"
+                  >
+                    <span><i class="fas fa-bed"></i> 5 Bed</span>
+                    <span><i class="fas fa-bath"></i> 4 Bath</span>
+                    <span><i class="fas fa-ruler-combined"></i> 3500 sqft</span>
+                  </div>
+
+                  <div
+                    class="d-flex justify-content-between align-items-center"
+                  >
+                    <span class="small text-success fw-bold"
+                      >Development: Ready</span
+                    >
+                    <div class="btn-group">
+                      <a
+                        href="property.html"
+                        class="btn btn-outline-dark btn-sm"
+                        >Details</a
+                      >
+                      <a href="compare.html" class="btn btn-primary btn-sm"
+                        >Compare</a
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- Property 2: Business Hub -->
+            <article class="col-md-6">
+              <div class="card prop-card shadow-sm h-100 border-0">
+                <div class="badge-container position-relative">
+                  <!-- Add actual property image - Business Hub in Blue Area Islamabad -->
+                  <img
+                    src="images/plaza.png"
+                    class="card-img-top"
+                    alt="Business Hub Property"
+                  />
+                  <span
+                    class="badge bg-danger position-absolute top-0 start-0 m-3"
+                    >Premium</span
+                  >
+                  <span class="badge bg-info position-absolute top-0 end-0 m-3"
+                    >High ROI</span
+                  >
+                </div>
+                <div class="card-body">
+                  <div
+                    class="d-flex justify-content-between align-items-start mb-2"
+                  >
+                    <h5 class="fw-bold">Business Hub</h5>
+                    <span class="text-primary fw-bold">PKR 45M</span>
+                  </div>
+                  <p class="text-muted small mb-3">Blue Area, Islamabad</p>
+
+                  <div class="mb-3">
+                    <span class="badge bg-light text-dark me-1"
+                      >Main Boulevard</span
+                    >
+                    <span class="badge bg-light text-dark me-1">Basement</span>
+                    <span class="badge bg-light text-dark">Commercial</span>
+                  </div>
+
+                  <div
+                    class="d-flex justify-content-between small text-muted mb-3"
+                  >
+                    <span><i class="fas fa-store"></i> Ground + 4</span>
+                    <span><i class="fas fa-car"></i> Parking</span>
+                    <span><i class="fas fa-ruler-combined"></i> 8000 sqft</span>
+                  </div>
+
+                  <div
+                    class="d-flex justify-content-between align-items-center"
+                  >
+                    <span class="small text-success fw-bold"
+                      >Rental Yield: 8-10%</span
+                    >
+                    <div class="btn-group">
+                      <a
+                        href="property.html"
+                        class="btn btn-outline-dark btn-sm"
+                        >Details</a
+                      >
+                      <a href="compare.html" class="btn btn-primary btn-sm"
+                        >Compare</a
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- Property 3: Apartment in DHA -->
+            <article class="col-md-6">
+              <div class="card prop-card shadow-sm h-100 border-0">
+                <div class="badge-container position-relative">
+                  <!-- Add actual property image - Apartment in DHA Lahore -->
+                  <img
+                    src="images/studioapartment.png"
+                    class="card-img-top"
+                    alt="DHA Apartment Property"
+                  />
+                  <span
+                    class="badge bg-success position-absolute top-0 start-0 m-3"
+                    >Verified</span
+                  >
+                  <span class="badge bg-info position-absolute top-0 end-0 m-3"
+                    >New Listing</span
+                  >
+                </div>
+                <div class="card-body">
+                  <div
+                    class="d-flex justify-content-between align-items-start mb-2"
+                  >
+                    <h5 class="fw-bold">Luxury Apartment</h5>
+                    <span class="text-primary fw-bold">PKR 18.5M</span>
+                  </div>
+                  <p class="text-muted small mb-3">DHA Phase 5, Lahore</p>
+
+                  <div class="mb-3">
+                    <span class="badge bg-light text-dark me-1"
+                      >Prime Location</span
+                    >
+                    <span class="badge bg-light text-dark me-1"
+                      >Gated Community</span
+                    >
+                    <span class="badge bg-light text-dark">Installment</span>
+                  </div>
+
+                  <div
+                    class="d-flex justify-content-between small text-muted mb-3"
+                  >
+                    <span><i class="fas fa-bed"></i> 3 Bed</span>
+                    <span><i class="fas fa-bath"></i> 2 Bath</span>
+                    <span><i class="fas fa-ruler-combined"></i> 1800 sqft</span>
+                  </div>
+
+                  <div
+                    class="d-flex justify-content-between align-items-center"
+                  >
+                    <span class="small text-warning fw-bold"
+                      >Under Construction</span
+                    >
+                    <div class="btn-group">
+                      <a
+                        href="property.html"
+                        class="btn btn-outline-dark btn-sm"
+                        >Details</a
+                      >
+                      <a href="compare.html" class="btn btn-primary btn-sm"
+                        >Compare</a
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- Property 4: Farm House -->
+            <article class="col-md-6">
+              <div class="card prop-card shadow-sm h-100 border-0">
+                <div class="badge-container position-relative">
+                  <!-- Add actual property image - Farm House in Chak Shahzad -->
+                  <img
+                    src="images/Farmhouse.png"
+                    class="card-img-top"
+                    alt="Farm House Property"
+                  />
+                  <span
+                    class="badge bg-success position-absolute top-0 start-0 m-3"
+                    >Verified</span
+                  >
+                  <span
+                    class="badge bg-secondary position-absolute top-0 end-0 m-3"
+                    >Exclusive</span
+                  >
+                </div>
+                <div class="card-body">
+                  <div
+                    class="d-flex justify-content-between align-items-start mb-2"
+                  >
+                    <h5 class="fw-bold">Farm House</h5>
+                    <span class="text-primary fw-bold">PKR 22M</span>
+                  </div>
+                  <p class="text-muted small mb-3">Chak Shahzad, Islamabad</p>
+
+                  <div class="mb-3">
+                    <span class="badge bg-light text-dark me-1">2 Kanal</span>
+                    <span class="badge bg-light text-dark me-1">Peaceful</span>
+                    <span class="badge bg-light text-dark">Tube Well</span>
+                  </div>
+
+                  <div
+                    class="d-flex justify-content-between small text-muted mb-3"
+                  >
+                    <span><i class="fas fa-bed"></i> 4 Bed</span>
+                    <span><i class="fas fa-bath"></i> 3 Bath</span>
+                    <span><i class="fas fa-tree"></i> 10000 sqft</span>
+                  </div>
+
+                  <div
+                    class="d-flex justify-content-between align-items-center"
+                  >
+                    <span class="small text-success fw-bold"
+                      >Ready to Move</span
+                    >
+                    <div class="btn-group">
+                      <a
+                        href="property.html"
+                        class="btn btn-outline-dark btn-sm"
+                        >Details</a
+                      >
+                      <a href="compare.html" class="btn btn-primary btn-sm"
+                        >Compare</a
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- Property 5: Commercial Shop -->
+            <article class="col-md-6">
+              <div class="card prop-card shadow-sm h-100 border-0">
+                <div class="badge-container position-relative">
+                  <!-- Add actual property image - Commercial Shop in Gulberg -->
+                  <img
+                    src="images/p1.jpg"
+                    class="card-img-top"
+                    alt="Commercial Shop Property"
+                  />
+                  <span
+                    class="badge bg-info position-absolute top-0 start-0 m-3"
+                    >Budget Friendly</span
+                  >
+                  <span
+                    class="badge bg-warning text-dark position-absolute top-0 end-0 m-3"
+                    >Rental</span
+                  >
+                </div>
+                <div class="card-body">
+                  <div
+                    class="d-flex justify-content-between align-items-start mb-2"
+                  >
+                    <h5 class="fw-bold">Commercial Shop</h5>
+                    <span class="text-primary fw-bold">PKR 8.5M</span>
+                  </div>
+                  <p class="text-muted small mb-3">Gulberg III, Lahore</p>
+
+                  <div class="mb-3">
+                    <span class="badge bg-light text-dark me-1">Main Road</span>
+                    <span class="badge bg-light text-dark me-1"
+                      >Ground Floor</span
+                    >
+                    <span class="badge bg-light text-dark">Investment</span>
+                  </div>
+
+                  <div
+                    class="d-flex justify-content-between small text-muted mb-3"
+                  >
+                    <span><i class="fas fa-store"></i> 1 Shop</span>
+                    <span><i class="fas fa-car"></i> Parking</span>
+                    <span><i class="fas fa-ruler-combined"></i> 250 sqft</span>
+                  </div>
+
+                  <div
+                    class="d-flex justify-content-between align-items-center"
+                  >
+                    <span class="small text-success fw-bold">LDA Approved</span>
+                    <div class="btn-group">
+                      <a
+                        href="property.html"
+                        class="btn btn-outline-dark btn-sm"
+                        >Details</a
+                      >
+                      <a href="compare.html" class="btn btn-primary btn-sm"
+                        >Compare</a
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- Property 6: Penthouse -->
+            <article class="col-md-6">
+              <div class="card prop-card shadow-sm h-100 border-0">
+                <div class="badge-container position-relative">
+                  <!-- Add actual property image - Penthouse in Clifton Karachi -->
+                  <img
+                    src="images/penthouse.png"
+                    class="card-img-top"
+                    alt="Penthouse Property"
+                  />
+                  <span
+                    class="badge bg-danger position-absolute top-0 start-0 m-3"
+                    >Luxury</span
+                  >
+                  <span
+                    class="badge bg-success position-absolute top-0 end-0 m-3"
+                    >Sea View</span
+                  >
+                </div>
+                <div class="card-body">
+                  <div
+                    class="d-flex justify-content-between align-items-start mb-2"
+                  >
+                    <h5 class="fw-bold">Penthouse</h5>
+                    <span class="text-primary fw-bold">PKR 38M</span>
+                  </div>
+                  <p class="text-muted small mb-3">Clifton Block 7, Karachi</p>
+
+                  <div class="mb-3">
+                    <span class="badge bg-light text-dark me-1">Sea View</span>
+                    <span class="badge bg-light text-dark me-1">Rooftop</span>
+                    <span class="badge bg-light text-dark">Exclusive</span>
+                  </div>
+
+                  <div
+                    class="d-flex justify-content-between small text-muted mb-3"
+                  >
+                    <span><i class="fas fa-bed"></i> 4 Bed</span>
+                    <span><i class="fas fa-bath"></i> 3 Bath</span>
+                    <span><i class="fas fa-ruler-combined"></i> 3000 sqft</span>
+                  </div>
+
+                  <div
+                    class="d-flex justify-content-between align-items-center"
+                  >
+                    <span class="small text-success fw-bold">KDA Approved</span>
+                    <div class="btn-group">
+                      <a
+                        href="property.html"
+                        class="btn btn-outline-dark btn-sm"
+                        >Details</a
+                      >
+                      <a href="compare.html" class="btn btn-primary btn-sm"
+                        >Compare</a
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <!-- Pagination -->
+          <nav aria-label="Property listings pagination" class="mt-5">
+            <ul class="pagination justify-content-center">
+              <li class="page-item disabled">
+                <a class="page-link" href="#" tabindex="-1">Previous</a>
+              </li>
+              <li class="page-item active">
+                <a class="page-link" href="#">1</a>
+              </li>
+              <li class="page-item"><a class="page-link" href="#">2</a></li>
+              <li class="page-item"><a class="page-link" href="#">3</a></li>
+              <li class="page-item">
+                <a class="page-link" href="#">Next</a>
+              </li>
+            </ul>
+          </nav>
+        </main>
+      </div>
+    </div>
+
+    <footer class="bg-dark text-white py-4 mt-5 text-center" role="contentinfo">
+      <div class="container">
+        <p class="mb-0">PropInsight&trade; All Rights Reserved.</p>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/script.js"></script>
+  </body>
+</html>
